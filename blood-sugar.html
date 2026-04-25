@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Blood Sugar Analysis</title>
+    <meta name="viewport"
+        content="width=device-width,initial-scale=1.0">
+    <style>
+        body{
+            margin: 0;
+            padding-top: 90px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            
+            font-family: Arial, sans-serif;
+            background-image: url("images/lab3.jpg");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+        }
+        body::before{
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 100%;
+
+            background: rgba(255, 245, 247, 0.85);
+            z-index: -1;
+        }
+        input {
+            padding: 12px;
+            width: 250px;
+            border-radius: 12px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        button {
+            background-color: #8b0000;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover{
+            background-color: #a30000;
+        }
+
+        #result{
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 15px;
+            width: 60%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .low { color: red; }
+        .normal { color: green; }
+        .high { color: orange; }
+
+        .box-normal{
+            background-color: #e8ffe8;
+            border: 2px solid green;
+        }
+
+        .box-problem{
+            background-color: #ffecec;
+            border: 2px solid red;
+        }
+        header{
+            background-color: #8b0000;
+            color: white;
+            padding: 15px;
+            font-size: 28px;
+            font-weight: bold;
+            text-align: left;
+            padding-left: 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+        }
+        footer{
+            margin-top: auto;
+            padding: 15px;
+            background-color: #8b0000;
+            color: white;
+            font-size: 14px;
+            text-align: center;
+        }
+         main{
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        Medical Test
+    </header>
+    <main>
+    <h3>Enter your Blood Sugar result:</h3>
+    <input type="number" id="sugar"><br><br>
+    <button onclick="checkSugar()">Check Result</button>
+    <p id="result"></p>
+    </main>
+    <footer>
+        © 2026 Medical Lab Guide | Pathologist Maryam Falah
+    </footer>
+    <script>
+        function checkSugar(){
+
+            let sugar = parseFloat(document.getElementById("sugar").value);
+
+            let resultText = "";
+            let status = "normal";
+
+            // 🔹 Normal range 70 - 99
+            if (sugar < 70){
+                resultText += "<span class='low'>Low Sugar ❗</span><br>";
+                status = "problem";
+            } 
+            else if (sugar <= 99){
+                resultText += "<span class='normal'>Normal Sugar ✅</span><br>";
+            } 
+            else {
+                resultText += "<span class='high'>High Sugar ⚠️ - Diabetes risk</span><br>";
+                status = "problem";
+            }
+
+            let resultBox = document.getElementById("result");
+
+            if (status === "normal"){
+                resultBox.className = "box-normal";
+                resultText += "<br><b style='color:green'>Your sugar level is normal ✅</b>";
+            } else {
+                resultBox.className = "box-problem";
+                resultText += "<br><b style='color:red'>Be careful ⚠️ Sugar is not normal</b>";
+            }
+
+            resultBox.innerHTML = resultText;
+        }
+    </script>
+
+</body>
+</html>

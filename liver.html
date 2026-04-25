@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Liver Function Analysis</title>
+    <meta name="viewport"
+        content="width=device-width,initial-scale=1.0">
+
+    <style>
+       body{
+            margin: 0;
+            padding-top: 90px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            
+            font-family: Arial, sans-serif;
+            background-image: url("images/lab3.jpg");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+        }
+        body::before{
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 100%;
+
+            background: rgba(255, 245, 247, 0.85);
+            z-index: -1;
+        }
+        input {
+            padding: 12px;
+            width: 250px;
+            border-radius: 12px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        button {
+            background-color: #8b0000;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover{
+            background-color: #a30000;
+        }
+
+        #result{
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 15px;
+            width: 60%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .low { color: green; }
+        .normal { color: green; }
+        .high { color: red; }
+
+        .box-normal{
+            background-color: #e8ffe8;
+            border: 2px solid green;
+        }
+
+        .box-problem{
+            background-color: #ffecec;
+            border: 2px solid red;
+        }
+        header{
+            background-color: #8b0000;
+            color: white;
+            padding: 15px;
+            font-size: 28px;
+            font-weight: bold;
+            text-align: left;
+            padding-left: 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+        }
+        footer{
+            margin-top: auto;
+            padding: 15px;
+            background-color: #8b0000;
+            color: white;
+            font-size: 14px;
+            text-align: center;
+        }
+         main{
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        Medical Test
+    </header>
+    <main>
+    <h3>Enter your Liver Function result (ALT):</h3>
+    <input type="number" id="alt"><br><br>
+    <button onclick="checkLiver()">Check Result</button>
+    <p id="result"></p>
+    </main>
+    <footer>
+        © 2026 Medical Lab Guide | Pathologist Maryam Falah
+    </footer>
+    <script>
+        function checkLiver(){
+
+            let alt = parseFloat(document.getElementById("alt").value);
+
+            let resultText = "";
+            let status = "normal";
+
+            // Normal: 7 - 56
+            if (alt < 7){
+                resultText += "<span class='low'>Low (rare) ⚠️</span><br>";
+                status = "problem";
+            } 
+            else if (alt <= 56){
+                resultText += "<span class='normal'>Normal Liver Function ✅</span><br>";
+            } 
+            else {
+                resultText += "<span class='high'>High ALT ⚠️ - Liver stress</span><br>";
+                status = "problem";
+            }
+
+            let resultBox = document.getElementById("result");
+
+            if (status === "normal"){
+                resultBox.className = "box-normal";
+                resultText += "<br><b style='color:green'>Liver is healthy ✅</b>";
+            } else {
+                resultBox.className = "box-problem";
+                resultText += "<br><b style='color:red'>Take care ⚠️ consult doctor</b>";
+            }
+
+            resultBox.innerHTML = resultText;
+        }
+    </script>
+
+</body>
+</html>
